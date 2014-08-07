@@ -32,7 +32,7 @@
 
 		cxt.save();
 		
-		cxt.translate(105,105);        
+		cxt.translate(100,100);        
 		// 创建clock
 		creatClock();
 		outTime();
@@ -107,7 +107,7 @@
 			cxt.save();
       		cxt.beginPath();
 	      	for(var i=0;i<12;i++){///小时刻度
-	        	cxt.rotate(Math.PI/6);
+	        	cxt.rotate(30*Math.PI/180);
 	        	cxt.moveTo(70,0);
 	        	cxt.lineTo(90,0);
 	      	}
@@ -122,7 +122,7 @@
 					cxt.moveTo(77,0);
 					cxt.lineTo(80,0);
 				}
-			cxt.rotate(Math.PI/30);
+				cxt.rotate(6*Math.PI/180); // Math.PI/180 === 1度
 			}
 			cxt.stroke();
 			cxt.restore();
