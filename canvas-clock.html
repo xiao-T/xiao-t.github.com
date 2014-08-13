@@ -110,6 +110,7 @@
 	        	cxt.rotate(30*Math.PI/180);
 	        	cxt.moveTo(70,0);
 	        	cxt.lineTo(90,0);
+	        	cxt.strokeText(i+1,-40,-60);
 	      	}
 	      	cxt.stroke();
 			cxt.restore();
@@ -134,6 +135,7 @@
 			cxt.arc(0,0,90,0,Math.PI*2,true);
 			cxt.stroke();
 			// cxt.restore();
+			console.log(cxt);
 		}
 		function $id(str){return document.getElementById(str);}
 		function mouseMove(e){
