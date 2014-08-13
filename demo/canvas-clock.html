@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas-clock</title>
+</head>
+<style>
+	* {
+		margin:0; padding:0;
+	}
+	body{background-color:#ccc;}
+	.wrap {width:200px; margin:20px auto;}
+	.canvas {background-color:#fff;}
+</style>
+<body>
+	<div class="wrap">
+		<canvas id="canvas" width="200" height="200" class="canvas"></canvas>
+		<div id="time"></div>
+	</div>
+	<div id="pos"></div>
+	<script>
+
+		var oCanvas = $id('canvas'),
+			cxt = oCanvas.getContext('2d'),
+			now = new Date(),
+			time = $id('time'),
+			h,m,s;
+		
+		h = now.getHours();
+		m = now.getMinutes();
+		s = now.getSeconds();
+
+		cxt.save();
+		
+		cxt.translate(100,100);        
+		// 创建clock
+		creatClock();
+		outTime();
+		setTimeout(function(){
+			creatClock();
+			outTime();
+		},500)
+
+		function outTime(){
+			now = new Date();
+			h = now.getHours();
+			m = now.getMinutes();
+			s = now.getSeconds();
+			time.innerHTML = '当前时间:' + (h>9? h: '0'+h) + ':' + (m>9? m: '0'+m) + ':' + (s>9? s: '0'+s);
+			setTimeout(function(){
+				creatClock();
+				outTime();
+			},500)
+		}
+		function creatClock(){
+			//初始化画布 更新画布
+			cxt.clearRect(-105,-105,200,200); 
+			//创建表盘
+			creatCircle();
+			// 创建刻度
+			creatTicks();
+			//创建时针
+			creatPointer();
+		}
+		// console.dir(cxt);
+		function creatPointer(){
+			
+			//时针
+			cxt.save();
+			cxt.rotate((h>11 ? h-12:h)*5*6*Math.PI/180)
+			cxt.strokeStyle = "#ffee00";
+			cxt.lineWidth = 3;
+			cxt.beginPath();
+			cxt.moveTo(0,10);
+			cxt.lineTo(0,-20);
+			cxt.stroke();
+			cxt.restore();
+
+			
+
+			// //分针
+			cxt.save();
+			cxt.rotate(m*6*Math.PI/180)
+			cxt.strokeStyle = "#ffee00";
+			cxt.lineWidth = 2;
+			cxt.beginPath();
+			cxt.moveTo(0,20);
+			cxt.lineTo(0,-40);
+			cxt.stroke();
+			cxt.restore();
+			
+
+			//秒针
+			cxt.save();
+			cxt.rotate(s*6*Math.PI/180)
+			cxt.lineWidth = 1;
+			cxt.strokeStyle = "#D40000";
+			cxt.beginPath();
+			cxt.moveTo(0,20);
+			cxt.lineTo(0,-70);
+			cxt.stroke();
+			cxt.restore();
+			
+		}
+		// 创建刻度
+		function creatTicks(){
+			cxt.save();
+      		cxt.beginPath();
+	      	for(var i=0;i<12;i++){///小时刻度
+	        	cxt.rotate(30*Math.PI/180);
+	        	cxt.moveTo(70,0);
+	        	cxt.lineTo(90,0);
+	        	cxt.strokeText(i+1,-40,-60);
+	      	}
+	      	cxt.stroke();
+			cxt.restore();
+
+			cxt.save();
+			cxt.lineWidth=5;
+			cxt.beginPath();
+			for(var i=0;i<60;i++){///分钟刻度
+				if(i%5!=0){
+					cxt.moveTo(77,0);
+					cxt.lineTo(80,0);
+				}
+				cxt.rotate(6*Math.PI/180); // Math.PI/180 === 1度
+			}
+			cxt.stroke();
+			cxt.restore();
+		}
+		// 创建表盘
+		function creatCircle(){
+			cxt.strokeStyle = "#ccc";
+			cxt.beginPath();
+			cxt.arc(0,0,90,0,Math.PI*2,true);
+			cxt.stroke();
+			// cxt.restore();
+			console.log(cxt);
+		}
+		function $id(str){return document.getElementById(str);}
+		function mouseMove(e){
+			$id('pos').innerHTML = 'X:' + e.clientX + ',Y:' + e.clientY;
+		}
+	</script>
+</body>
+</html>
