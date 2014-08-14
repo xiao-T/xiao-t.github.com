@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<style>
+	* {
+		margin:0; padding:0;
+	}
+	body{background-color:#ccc; font:14px/1.5 tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif;}
+	h1 {font-size:150%;}
+	.wrap {
+		margin:50px auto;
+		width:350px;
+	}
+	.canvas {background-color:#fff;}
+	#pic {
+		width:143px;
+		height:144px;
+		overflow:hidden;
+	}
+	.img-point {
+		float:left;
+		width:1px;
+		height:1px;
+	}
+	span {
+		display: block;
+		height:1px;
+		width:1px;
+	}
+</style>
+<body>
+	<div class="wrap">
+		<h1>canvas 载入图片</h1>
+		<canvas id="canvas" width="200" height="200" class="canvas"></canvas>
+		<h1>多个DIV，但box-shadow实现：</h1>
+		<div id="pic"></div>
+		<h1>单个元素，多box-shadow实现：</h1>
+		<div id="box-shadow-pic"></div>
+	</div>
+	<script>
+		var oCanvas = $id('canvas'),
+			oPic = $id('pic'),
+			boxShadowPic = $id('box-shadow-pic'),
+			cxt = oCanvas.getContext('2d'),
+			img = new Image(),
+			aHex = [],R,G,B,A,rgba,
+			imgData,dom,span,boxShadow;
+		dom = span = boxShadow = '';
+		img.src = 'images/can.png';
+		img.onload = function(){
+			console.log(img.width);
+			boxShadowPic.style.width = img.width+'px';
+			boxShadowPic.style.height = img.height+'px';
+			cxt.drawImage(img,0,0,143,144,0,0,143,144);
+			// console.log(cxt.getImageData(0,0,143,144));
+			imgData = cxt.getImageData(0,0,143,144).data;
+
+			// 用div 画图
+			for(var i = 0,l = imgData.length;i<l;i+=4){
+				R = imgData[i+0];
+				G = imgData[i+1];
+				B = imgData[i+2];
+				A = imgData[i+3];
+				rgba = 'rgba('+R+','+G+','+B+','+A+')';
+				dom += '<div class="img-point" style="box-shadow:1px 1px '+rgba+';"></div>';
+			}
+			oPic.innerHTML = dom;
+			// 用一个div  多个box-shadow来画图
+			
+			//提取图片颜色值 rgba
+			for(var k=0;k<imgData.length;k+=4){
+				R = imgData[k+0];
+				G = imgData[k+1];
+				B = imgData[k+2];
+				A = imgData[k+3];
+				rgba = 'rgba('+R+','+G+','+B+','+A+')';
+				aHex.push(rgba);
+			}
+			// console.log(aHex.length);
+			for(var i=0;i<img.height;i++){
+				for(var j=0;j<img.width;j++){
+					boxShadow += i+'px '+ j +'px '+aHex[(j*img.width)+i]+','; 
+				}
+			}
+			// console.log(boxShadow.slice(0,boxShadow.lastIndexOf(',')));
+			boxShadow = boxShadow.slice(0,boxShadow.lastIndexOf(','));
+			span = '<span style="box-shadow:'+boxShadow+'"></span>';
+			boxShadowPic.innerHTML = span;
+		}
+
+
+		function $id(str){return document.getElementById(str);}
+	</script>
+</body>
+</html>
