@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<style>
+	* {
+		margin:0; padding:0;
+	}
+	body{background-color:#fff; font:14px/1.5 '微软雅黑',tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif;}
+	h1 {font-size:150%; font-weight:400;}
+	.wrap {
+		margin:50px auto;
+		width:500px;
+		overflow: hidden;
+	}
+	.fl {float:left;}
+
+	.canvas {background-color:#fff;}
+	.change {
+		margin-bottom:20px;
+	}
+	.change label {
+		margin-right:10px;
+	}
+</style>
+<body>
+	<div class="wrap">
+		<div>
+			<h1>变一变</h1>
+			<div id="change" class="change">
+				<label><input data-filter="reset" type="radio" name="filter">复位</label>
+				<label><input data-filter="invert" type="radio" name="filter">反色</label>
+				<label><input data-filter="gray" type="radio" name="filter">灰色</label>
+				<label><input data-filter="red" type="radio" name="filter">红色</label>
+				<label><input data-filter="relief" type="radio" name="filter">浮雕刻度</label>
+				<label><input data-filter="sepia" type="radio" name="filter">复古</label>
+				<label><input data-filter="BWStyler" type="radio" name="filter">黑白</label>
+				<!-- <label><input data-filter="mirror" type="radio" name="filter">镜像</label> -->
+			</div>
+		</div>
+		<div class="fl">
+			<h1>原图</h1>
+			<canvas id="canvas" width="200" height="200" class="canvas"></canvas>
+		</div>
+		<div class="fl">
+			<h1>添加滤镜后的图片</h1>
+			<canvas id="filter" width="200" height="200" class="canvas"></canvas>			
+		</div>
+	</div>
+	<script>
+		var oCanvas = $id('canvas'),
+			oFilter = $id('filter'),
+			cxt = oCanvas.getContext('2d'),
+			filterCxt = oFilter.getContext('2d'),
+			img = new Image(),
+			imgData,filter;
+		(function(){
+			
+			img.src = 'images/can.png';
+			img.onload = function(){
+				console.log(img.width);
+				cxt.drawImage(img,0,0,img.width,img.height,0,0,img.width,img.height);
+				filter = new Filter(cxt, img.width, img.height);
+				imgFilter();
+				//复位
+				// imgData = filter.reset();
+				//反色
+				// imgData = filter.invert();
+				//灰色
+				// imgData = filter.gray();
+				//红色
+				// imgData = filter.red();
+				//浮雕刻度
+				// imgData = filter.relief();
+				//复古
+				// imgData = filter.sepia();
+				//颠倒
+				// imgData = filter.reverse();
+				// 黑白
+				// imgData = filter.BWStyler();
+				// 素描
+				// imgData = filter.sketch();
+				// filterCxt.putImageData(imgData,0,0)
+			}
+		})();
+		function imgFilter(){
+			var aInput = document.querySelectorAll('#change input');
+			
+			for(var i=0,l=aInput.length; i<l; i++){
+				aInput[i].onclick = function(){
+					// console.log(this.dataset.filter,this.getAttribute('data-filter'));
+					imgData = filter[this.getAttribute('data-filter')]();
+					filterCxt.putImageData(imgData,0,0);
+				}
+			}
+		}
+		/**
+		 * [Filter description]
+		 * @param {[type]} cxt [画布原始对象]
+		 * 相关阅读：
+		 * http://javascript.ruanyifeng.com/htmlapi/canvas.html
+		 * http://www.storminthecastle.com/2013/04/06/how-you-can-do-cool-image-effects-using-html5-canvas/
+		 * http://www.icodelogic.com/?p=575
+		 * 滤镜原理解释：
+		 * 1.反色：获取一个像素点RGB值r, g, b则新的RGB值为(255-r, 255-g, 255-b)
+		 * 2.灰色调：将红、绿、蓝三个值相加后除以3
+		 * 		灰色的另一种算法  R*0.299 + G*0.587 + B*0.144
+		 * 	试了两种方法，感脚区别不大
+		 * 3.模糊：基于一个5*5的卷积核
+		 * 4.浮雕与雕刻：
+		 *   	基于当前像素的前一个像素RGB值与它的后一个像素的RGB值之差再加上128
+		 * 5.镜像：模拟了物体在镜子中与之对应的效果。
+		 * 6.红色蒙板 r ===当前像素rgb的相加和除以3，g 和 b 都 === 0.
+		 * 7.黑白：求当前颜色R+G+B的平均值，如果平均值<100,R=G=B=0;反之，R=G=B=255
+		 *  
+		 */
+		var Filter = function(cxt, width, height){
+			var that = this;
+			var cxtImgData = cxt.getImageData(0,0,width,height);
+
+			that.R = that.G = that.B = '';
+			that.imageRgbaData = cxtImgData.data;
+
+			//复位
+			Filter.prototype.reset = function(){
+				cxtImgData = cxt.getImageData(0,0,width,height);
+				return cxtImgData;
+			}
+			//反色
+			Filter.prototype.invert = function(){
+				cxtImgData = cxt.getImageData(0,0,width,height);
+				that.imageRgbaData = cxtImgData.data;
+				for(var k=0, l=that.imageRgbaData.length;k<l;k+=4){
+					that.R = that.imageRgbaData[k+0];
+					that.G = that.imageRgbaData[k+1];
+					that.B = that.imageRgbaData[k+2];
+					that.imageRgbaData[k+0] = 255 - that.R;// R
+					that.imageRgbaData[k+1] = 255 - that.G;// G
+					that.imageRgbaData[k+2] = 255 - that.B;// B
+					// that.imageRgbaData[k+3] = 255 - that.imageRgbaData[k+3]; // A
+				}
+				cxtImgData.data = that.imageRgbaData;
+				return cxtImgData;
+			}
+			//灰色
+			Filter.prototype.gray = function(){
+				cxtImgData = cxt.getImageData(0,0,width,height);
+				that.imageRgbaData = cxtImgData.data;
+				for(var k=0, l=that.imageRgbaData.length;k<l;k+=4){
+					that.R = that.imageRgbaData[k+0];
+					that.G = that.imageRgbaData[k+1];
+					that.B = that.imageRgbaData[k+2];
+					that.imageRgbaData[k+0] = // R
+					that.imageRgbaData[k+1] = // G
+					that.imageRgbaData[k+2] = (that.R + that.G + that.B)/3;// B
+					// gray = 0.299 * r + 0.587 * g + 0.114 * b;
+				}
+				cxtImgData.data = that.imageRgbaData;
+				return cxtImgData;
+			}
+			//复古
+			Filter.prototype.sepia = function(){
+				cxtImgData = cxt.getImageData(0,0,width,height);
+				that.imageRgbaData = cxtImgData.data;
+				for(var k=0, l=that.imageRgbaData.length;k<l;k+=4){
+					that.R = that.imageRgbaData[k+0];
+					that.G = that.imageRgbaData[k+1];
+					that.B = that.imageRgbaData[k+2];
+					that.imageRgbaData[k+0] = (that.R * 0.393) + (that.G * 0.769) + (that.B * 0.189);// R
+					that.imageRgbaData[k+1] = (that.R * 0.349) + (that.G * 0.686) + (that.B * 0.168);// G
+					that.imageRgbaData[k+2] = (that.R * 0.272) + (that.G * 0.534) + (that.B * 0.131);// B
+				}
+				cxtImgData.data = that.imageRgbaData;
+				return cxtImgData;
+			}
+			//红色蒙板
+			Filter.prototype.red = function(){
+				cxtImgData = cxt.getImageData(0,0,width,height);
+				that.imageRgbaData = cxtImgData.data;
+				for(var k=0, l=that.imageRgbaData.length;k<l;k+=4){
+					that.R = that.imageRgbaData[k+0];
+					that.G = that.imageRgbaData[k+1];
+					that.B = that.imageRgbaData[k+2];
+					that.imageRgbaData[k+0] = (that.R + that.G + that.B)/3;// R
+					that.imageRgbaData[k+1] = 0;// G
+					that.imageRgbaData[k+2] = 0;// B
+					// that.imageRgbaData[k+3] = 255 - that.imageRgbaData[k+3]; // A
+				}
+				cxtImgData.data = that.imageRgbaData;
+				return cxtImgData;
+			}
+			//浮雕与雕刻
+			Filter.prototype.relief = function(){
+
+				cxtImgData = cxt.getImageData(0,0,width,height);
+				that.imageRgbaData = cxtImgData.data;
+
+				that.nextR = '';
+				that.nextG = '';
+				that.nextB = '';
+				for(var k=0, l=that.imageRgbaData.length;k<l;k+=4){
+					that.R = that.imageRgbaData[k+0];
+					that.G = that.imageRgbaData[k+1];
+					that.B = that.imageRgbaData[k+2];
+
+					that.nextR = that.imageRgbaData[k+0+4];
+					that.nextG = that.imageRgbaData[k+1+4];
+					that.nextB = that.imageRgbaData[k+2+4];
+
+					//到最后一个像素点的时候
+					//不存在下一个
+					if(!that.nextR){
+						that.nextR = 0;
+						that.nextG = 0;
+						that.nextB = 0;
+					}
+
+					that.imageRgbaData[k+0] = that.R - that.nextR + 128;// R
+					that.imageRgbaData[k+1] = that.G - that.nextG + 128;// G
+					that.imageRgbaData[k+2] = that.B - that.nextB + 128;// B
+					// that.imageRgbaData[k+3] = 255 - that.imageRgbaData[k+3]; // A
+				}
+				cxtImgData.data = that.imageRgbaData;
+				return cxtImgData;
+			}
+			// 黑白
+			Filter.prototype.BWStyler = function(){
+				var average;
+				cxtImgData = cxt.getImageData(0,0,width,height);
+				that.imageRgbaData = cxtImgData.data;
+				for(var k=0, l=that.imageRgbaData.length;k<l;k+=4){
+					that.R = that.imageRgbaData[k+0];
+					that.G = that.imageRgbaData[k+1];
+					that.B = that.imageRgbaData[k+2];
+					average = (that.R + that.G + that.B)/3;
+					if(average < 100) {
+						that.imageRgbaData[k+0] = // R
+						that.imageRgbaData[k+1] = // G
+						that.imageRgbaData[k+2] = 0;// B
+					} else {
+						that.imageRgbaData[k+0] = // R
+						that.imageRgbaData[k+1] = // G
+						that.imageRgbaData[k+2] = 255;// B
+					}
+					
+				}
+				cxtImgData.data = that.imageRgbaData;
+				return cxtImgData;
+			}
+			// 素描
+			Filter.prototype.sketch = function (){
+				// console.log(cxtImgData)
+				for(var i=0, l=cxtImgData.height;i<l;i++){
+					for(var j=0, k=cxtImgData.width;j<k;j++){
+						var sum = 0,
+							temp,
+							bwR,bwG,bwB;
+						// bwR = bwG = bwB =
+						// that.R = that.G = that.B =
+						// that.oR = that.oG = that.oB = 
+						// that.gR = that.gG = that.gB = [];
+						// 去色 反色
+						that.oR = that.R = that.imageRgbaData[(j+i*cxtImgData.width)*4];
+						that.oG = that.G = that.imageRgbaData[(j+i*cxtImgData.width)*4+1];
+						that.oB = that.B = that.imageRgbaData[(j+i*cxtImgData.width)*4+2];
+
+						that.R = 
+						that.G = 
+						that.B = (that.R + that.G + that.B)/3;
+
+						// 反向
+						bwR = that.imageRgbaData[(j+i*cxtImgData.width)*4] = 255 - that.R;// R
+						bwG = that.imageRgbaData[(j+i*cxtImgData.width)*4+1] = 255 - that.G;// G
+						bwB = that.imageRgbaData[(j+i*cxtImgData.width)*4+2] = 255 - that.B;// B
+						// that.imageRgbaData[k+3] = 255 - that.imageRgbaData[k+3]; // A
+						// 高斯模糊
+						// console.log(that.imageRgbaData[((i+j*cxtImgData.height)*4) - 1])
+						// that.imageRgbaData[(j+i*cxtImgData.width)*4] = that.gR = ((that.imageRgbaData[((j-1+(i-1)*cxtImgData.width)*4)] || that.imageRgbaData[(j+i*cxtImgData.width)*4]) + 
+						// 	  (that.imageRgbaData[(j+(i-1)*cxtImgData.width)*4] || that.imageRgbaData[(j+i*cxtImgData.width)*4]) + 
+						// 	  (that.imageRgbaData[((j+1+(i-1)*cxtImgData.width)*4)] || that.imageRgbaData[(j+i*cxtImgData.width)*4]) + 
+						// 	  (that.imageRgbaData[((j-1+i*cxtImgData.width)*4)] || that.imageRgbaData[(j+i*cxtImgData.width)*4]) + 
+						// 	  // that.imageRgbaData[(i+(j+1)*cxtImgData.width)*4] + 
+						// 	  (that.imageRgbaData[((j+1+i*cxtImgData.width)*4)] || that.imageRgbaData[(j+i*cxtImgData.width)*4]) + 
+						// 	  (that.imageRgbaData[((j-1+(i+1)*cxtImgData.width)*4)] || that.imageRgbaData[(j+i*cxtImgData.width)*4]) + 
+						// 	  (that.imageRgbaData[(j+(i+1)*cxtImgData.width)*4] || that.imageRgbaData[(j+i*cxtImgData.width)*4]) + 
+						// 	  (that.imageRgbaData[((j+1+(i+1)*cxtImgData.width)*4)] || that.imageRgbaData[(j+i*cxtImgData.width)*4]))/8;
+
+						// that.imageRgbaData[(j+i*cxtImgData.width)*4+1] = that.gG = ((that.imageRgbaData[((j-1+(i-1)*cxtImgData.width)*4+1)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+1]) +
+						// 	  (that.imageRgbaData[(j+(i-1)*cxtImgData.width)*4+1]|| that.imageRgbaData[(j+i*cxtImgData.width)*4+1]) + 
+						// 	  (that.imageRgbaData[((j+1+(i-1)*cxtImgData.width)*4+1)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+1]) + 
+						// 	  (that.imageRgbaData[((j-1+i*cxtImgData.width)*4+1)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+1]) + 
+						// 	  // that.imageRgbaData[(i+(j+1)*cxtImgData.width)*4+1] + 
+						// 	  (that.imageRgbaData[((j+1+i*cxtImgData.width)*4+1)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+1]) + 
+						// 	  (that.imageRgbaData[((j-1+(i+1)*cxtImgData.width)*4+1)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+1]) + 
+						// 	  (that.imageRgbaData[(j+(i+1)*cxtImgData.width)*4+1]|| that.imageRgbaData[(j+i*cxtImgData.width)*4+1]) + 
+						// 	  (that.imageRgbaData[((j+1+(i+1)*cxtImgData.width)*4+1)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+1]))/8;
+
+						// that.imageRgbaData[(j+i*cxtImgData.width)*4+2] = that.gB = ((that.imageRgbaData[((j-1+(i-1)*cxtImgData.width)*4+2)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+2]) +
+						// 	  (that.imageRgbaData[(j+(i-1)*cxtImgData.width)*4+2] || that.imageRgbaData[(j+i*cxtImgData.width)*4+2]) + 
+						// 	  (that.imageRgbaData[((j+1+(i-1)*cxtImgData.width)*4+2)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+2]) + 
+						// 	  (that.imageRgbaData[((j-1+i*cxtImgData.width)*4+2)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+2]) + 
+						// 	  // that.imageRgbaData[(i+(j+1)*cxtImgData.width)*4+2] + 
+						// 	  (that.imageRgbaData[((j+1+i*cxtImgData.width)*4+2)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+2]) + 
+						// 	  (that.imageRgbaData[((j-1+(i+1)*cxtImgData.width)*4+2)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+2]) + 
+						// 	  (that.imageRgbaData[(j+(i+1)*cxtImgData.width)*4+2] || that.imageRgbaData[(j+i*cxtImgData.width)*4+2]) + 
+						// 	  (that.imageRgbaData[((j+1+(i+1)*cxtImgData.width)*4+2)] || that.imageRgbaData[(j+i*cxtImgData.width)*4+2]))/8;
+						
+						that.imageRgbaData[(j+i*cxtImgData.width)*4] = that.gR[(j+i*cxtImgData.width)*4] = ((bwR[((j-1+(i-1)*cxtImgData.width)*4)] || bwR[(j+i*cxtImgData.width)*4]) + 
+							  (bwR[(j+(i-1)*cxtImgData.width)*4] || bwR[(j+i*cxtImgData.width)*4]) + 
+							  (bwR[((j+1+(i-1)*cxtImgData.width)*4)] || bwR[(j+i*cxtImgData.width)*4]) + 
+							  (bwR[((j-1+i*cxtImgData.width)*4)] || bwR[(j+i*cxtImgData.width)*4]) + 
+							  // that.imageRgbaData[(i+(j+1)*cxtImgData.width)*4] + 
+							  (bwR[((j+1+i*cxtImgData.width)*4)] || bwR[(j+i*cxtImgData.width)*4]) + 
+							  (bwR[((j-1+(i+1)*cxtImgData.width)*4)] || bwR[(j+i*cxtImgData.width)*4]) + 
+							  (bwR[(j+(i+1)*cxtImgData.width)*4] || bwR[(j+i*cxtImgData.width)*4]) + 
+							  (bwR[((j+1+(i+1)*cxtImgData.width)*4)] || bwR[(j+i*cxtImgData.width)*4]))/8;
+
+						that.imageRgbaData[(j+i*cxtImgData.width)*4+1] = that.gG[(j+i*cxtImgData.width)*4+1] = ((bwG[((j-1+(i-1)*cxtImgData.width)*4+1)] || bwG[(j+i*cxtImgData.width)*4+1]) +
+							  (bwG[(j+(i-1)*cxtImgData.width)*4+1]|| bwG[(j+i*cxtImgData.width)*4+1]) + 
+							  (bwG[((j+1+(i-1)*cxtImgData.width)*4+1)] || bwG[(j+i*cxtImgData.width)*4+1]) + 
+							  (bwG[((j-1+i*cxtImgData.width)*4+1)] || bwG[(j+i*cxtImgData.width)*4+1]) + 
+							  // that.imageRgbaData[(i+(j+1)*cxtImgData.width)*4+1] + 
+							  (bwG[((j+1+i*cxtImgData.width)*4+1)] || bwG[(j+i*cxtImgData.width)*4+1]) + 
+							  (bwG[((j-1+(i+1)*cxtImgData.width)*4+1)] || bwG[(j+i*cxtImgData.width)*4+1]) + 
+							  (bwG[(j+(i+1)*cxtImgData.width)*4+1]|| bwG[(j+i*cxtImgData.width)*4+1]) + 
+							  (bwG[((j+1+(i+1)*cxtImgData.width)*4+1)] || bwG[(j+i*cxtImgData.width)*4+1]))/8;
+
+						that.imageRgbaData[(j+i*cxtImgData.width)*4+2] = that.gB[(j+i*cxtImgData.width)*4+2] = ((bwB[((j-1+(i-1)*cxtImgData.width)*4+2)] || bwB[(j+i*cxtImgData.width)*4+2]) +
+							  (bwB[(j+(i-1)*cxtImgData.width)*4+2] || bwB[(j+i*cxtImgData.width)*4+2]) + 
+							  (bwB[((j+1+(i-1)*cxtImgData.width)*4+2)] || bwB[(j+i*cxtImgData.width)*4+2]) + 
+							  (bwB[((j-1+i*cxtImgData.width)*4+2)] || bwB[(j+i*cxtImgData.width)*4+2]) + 
+							  // that.imageRgbaData[(i+(j+1)*cxtImgData.width)*4+2] + 
+							  (bwB[((j+1+i*cxtImgData.width)*4+2)] || bwB[(j+i*cxtImgData.width)*4+2]) + 
+							  (bwB[((j-1+(i+1)*cxtImgData.width)*4+2)] || bwB[(j+i*cxtImgData.width)*4+2]) + 
+							  (bwB[(j+(i+1)*cxtImgData.width)*4+2] || bwB[(j+i*cxtImgData.width)*4+2]) + 
+							  (bwB[((j+1+(i+1)*cxtImgData.width)*4+2)] || bwB[(j+i*cxtImgData.width)*4+2]))/8;
+
+
+						// 颜色减淡 结果色 = 基色 + (混合色 * 基色) / (255 - 混合色)	
+						temp = that.R[(j+i*cxtImgData.width)*4] + (that.R[(j+i*cxtImgData.width)*4]*that.gR[(j+i*cxtImgData.width)*4])/(255 - that.gR[(j+i*cxtImgData.width)*4]);
+						that.imageRgbaData[(j+i*cxtImgData.width)*4] = Math.min(temp, 255);
+
+						temp = that.G[(j+i*cxtImgData.width)*4+1] + (that.G*that.gG[(j+i*cxtImgData.width)*4+1])/(255 - that.gG[(j+i*cxtImgData.width)*4+1]);
+						that.imageRgbaData[(j+i*cxtImgData.width)*4+1] = Math.min(temp, 255);
+
+						temp = that.B[(j+i*cxtImgData.width)*4+2] + (that.B*that.gB[(j+i*cxtImgData.width)*4+2])/(255 - that.gB[(j+i*cxtImgData.width)*4+2]);
+						that.imageRgbaData[(j+i*cxtImgData.width)*4+2] = Math.min(temp, 255);
+					}
+				}
+				cxtImgData.data = that.imageRgbaData;
+				return cxtImgData;
+			}
+			// 镜像
+			Filter.prototype.mirror = function(){
+				var index, mIndex;
+				cxtImgData = cxt.getImageData(0,0,width,height);
+				that.imageRgbaData = cxtImgData.data;
+				for(var x=0; x<width; x++){
+					for(var y=0; y<height; y++){
+						index = (x + y * width) * 4;
+						mIndex = ((width - 1 - x) + y * width) * 4;
+						that.imageRgbaData[mIndex + 0] = that.imageRgbaData[index + 0];// R
+						that.imageRgbaData[mIndex + 1] = that.imageRgbaData[index + 1];// G
+						that.imageRgbaData[mIndex + 2] = that.imageRgbaData[index + 2];// B
+					}
+				}
+				cxtImgData.data = that.imageRgbaData;
+				return cxtImgData;
+			}
+		}
+
+		function $id(str){return document.getElementById(str);}
+	</script>
+</body>
+</html>
