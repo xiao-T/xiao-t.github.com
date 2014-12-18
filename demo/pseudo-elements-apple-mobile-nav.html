@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>伪元素仿Apple官网移动站的菜单</title>
+</head>
+<body>
+	<style>
+		body {
+			font-size: 62.5%;
+		}
+		.wrap {
+			background-color: rgba(0,0,0,.5);
+			height: 50px;
+			opacity: 0;
+		}
+		.menu-checkbox {
+			display:none;
+		}
+		.menu {
+			display: block;
+			height: 50px;
+			padding: 0 10px;
+			cursor: pointer;
+		}
+		.menu::before,
+		.menu::after {
+			content: '';
+			display: block;
+			height: 3px;
+			width: 35px;
+			background-color: #fff;
+		}
+		.menu::before {
+			transform: translateY(500%);
+		}
+		.menu::after {
+			transform: translateY(800%);
+		}
+
+		.menu-checkbox:checked  + .menu::before {
+			-webkit-animation-name: "ani-before-open";
+		    -webkit-animation-duration: 1000ms;
+		    -webkit-animation-iteration-count: 1;
+		    -webkit-animation-fill-mode: forwards;
+		}
+		.menu-checkbox:checked  + .menu::after {
+			-webkit-animation-name: "ani-after-open";
+		    -webkit-animation-duration: 1000ms;
+		    -webkit-animation-iteration-count: 1;
+		    -webkit-animation-fill-mode: forwards;
+		}
+
+		@-webkit-keyframes "ani-before-open" {
+			0% {
+				transform: translateY(500%);
+			}
+			50% {
+				transform: translateY(700%);
+			}
+			100% {
+				transform: translateY(700%) rotateZ(45deg);
+			}
+		}
+
+		@-webkit-keyframes "ani-after-open" {
+			0% {
+				transform: translateY(800%);
+			}
+			50% {
+				transform: translateY(600%);
+			}
+			100% {
+				transform: translateY(600%) rotateZ(-45deg);
+			}
+		}
+	
+		.menu-checkbox:not(:checked)  + .menu::before {
+			-webkit-animation-name: "ani-before-close";
+		    -webkit-animation-duration: 1000ms;
+		    -webkit-animation-iteration-count: 1;
+		    -webkit-animation-fill-mode: forwards;
+		}
+		.menu-checkbox:not(:checked)  + .menu::after {
+			-webkit-animation-name: "ani-after-close";
+		    -webkit-animation-duration: 1000ms;
+		    -webkit-animation-iteration-count: 1;
+		    -webkit-animation-fill-mode: forwards;
+		}
+
+		@-webkit-keyframes "ani-before-close" {
+			0% {
+				transform: translateY(700%) rotateZ(45deg);
+			}
+			50% {
+				transform: translateY(700%);
+			}
+			100% {
+				transform: translateY(500%);
+			}
+		}
+
+		@-webkit-keyframes "ani-after-close" {
+			0% {
+				transform: translateY(600%) rotateZ(-45deg);
+			}
+			50% {
+				transform: translateY(600%);
+			}
+			100% {
+				transform: translateY(800%);
+			}
+		}
+	</style>
+	<h1><a target="_blank" href="http://www.qianduan.net/pseudo-elements.html">启发地址</a></h1>
+	<h2><a target="_blank" href="http://runjs.cn/detail/boi7xnyd">借鉴地址</a></h2>
+	<h3>demo效果如下</h3>
+	<div>
+		两个动画效果的切换，利用了checkbox的 checked属性的切换！完全抛弃了 js!
+	</div>
+	<div id="wrap" class="wrap">
+		<input id="btn" class="menu-checkbox" type="checkbox">
+		<label id="label-btn" class="menu" for="btn"></label>
+	</div>
+	<script>
+		window.onload = function() {
+			var wrap = document.getElementById('wrap');
+			// 	newCheckBox = document.createElement('input'),
+			// 	label = document.getElementById('label-btn');
+
+			// newCheckBox.id = 'btn';
+			// newCheckBox.className = 'menu-checkbox';
+			// newCheckBox.type = 'checkbox';
+			// wrap.insertBefore(newCheckBox,label)
+
+			// 延时 500ms 显示demo
+			// 以免 一加载完，就显示一个动画效果
+			// 灰常不协调
+			setTimeout(function(){
+				wrap.style.opacity = '1';
+			},500)
+		}
+	</script>
+</body>
+</html>

@@ -7,16 +7,16 @@
 <body>
 	<style>
 		* {margin: 0;padding: 0;}
-		body {-webkit-perspective: 50em;}
+		body {-webkit-perspective: 80em;}
 		ul,li {list-style: none;}
 		.cube {margin:  100px auto; width: 200px;-webkit-transform-style: preserve-3d; -webkit-animation: ani 8s infinite linear;}
-		li {width: 16em; height: 16em; background-color: rgba(144,144,255,.5); position: absolute; border:solid 1px red;}
-		li:nth-child(1) {-webkit-transform:translateZ(8em);}
-		li:nth-child(2) {-webkit-transform: rotateY(180deg) translateZ(8em);}
-		li:nth-child(3) {-webkit-transform:rotateY(90deg) translateZ(8em);}
-		li:nth-child(4) {-webkit-transform: rotateY(-90deg) translateZ(8em);}
-		li:nth-child(5) {-webkit-transform:rotateX(90deg) translateZ(8em);}
-		li:nth-child(6) {-webkit-transform: rotateX(-90deg) translateZ(8em);}
+		li {width: 8em; height: 8em; background-color: rgba(144,144,255,.5); position: absolute; border:solid 1px red;}
+		li:nth-child(1) {-webkit-transform:translateZ(4em);}
+		li:nth-child(2) {-webkit-transform: rotateY(180deg) translateZ(4em);}
+		li:nth-child(3) {-webkit-transform:rotateY(90deg) translateZ(4em);}
+		li:nth-child(4) {-webkit-transform: rotateY(-90deg) translateZ(4em);}
+		li:nth-child(5) {-webkit-transform:rotateX(90deg) translateZ(4em);}
+		li:nth-child(6) {-webkit-transform: rotateX(-90deg) translateZ(4em);}
 
 		@-webkit-keyframes ani { 
 			to { -webkit-transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg); }
