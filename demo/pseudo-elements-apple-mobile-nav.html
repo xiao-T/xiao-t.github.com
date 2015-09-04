@@ -14,16 +14,17 @@
 			background-color: rgba(0,0,0,.5);
 			width: 200px;
 			height: 200px;
+			line-height: 200px;
+			text-align: center;
 			margin: 0 auto;
-			opacity: 0;
+			opacity: 1;
 		}
 		.menu-checkbox {
 			display:none;
 		}
 		.menu {
-			display: block;
+			display: inline-block;
 			height: 50px;
-			padding: 0 10px;
 			cursor: pointer;
 		}
 		.menu::before,
@@ -140,7 +141,7 @@
 			// 以免 一加载完，就显示一个动画效果
 			// 灰常不协调
 			setTimeout(function(){
-				wrap.style.opacity = '1';
+				// wrap.style.opacity = '1';
 			},500)
 		}
 	</script>

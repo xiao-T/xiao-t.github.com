@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>target tab-伪类实现tab</title>
+</head>
+<body>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.tab {
+			margin: 50px auto;
+			width: 50%;
+			height: 30%;
+			position: relative;
+		}
+		.tab-btn {
+			height: 40px;
+		}
+		.tab-btn a {
+			float: left;
+			width: 33.333333%;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			background-color: #ccc;
+			border-right: 3px solid #fff;
+			box-sizing: border-box;
+		}
+		.tab-btn a:nth-child(3) {
+			border-right: none;
+		}
+		.item {
+			position: absolute;
+			top: 40px;
+			left: 0;
+			box-sizing: border-box;
+			width: 100%;
+			height: 300px;
+			border-width: 5px;
+			border-style: solid;
+			background-color: #abc;
+			display: none;
+		}
+		.item:nth-of-type(1) {
+			display: block;
+			border-color: red;
+			/*z-index: 3;*/
+		}
+		.item:nth-of-type(2) {
+			border-color: blue;
+			/*z-index: 2;*/
+		}
+		.item:nth-of-type(3) {
+			border-color: green;
+			/*z-index: 1;*/
+		}
+		.item:target {
+			display: block;
+			/*z-index: 4;*/
+		}
+	</style>
+
+	<div class="tab">
+		<div class="tab-btn">
+			<a href="#tab1">tab1</a>
+			<a href="#tab2">tab2</a>
+			<a href="#tab3">tab3</a>
+		</div>
+		<section class="item" id="tab1">tab1-con</section>
+		<section class="item" id="tab2">tab2-con</section>
+		<section class="item" id="tab3">tab3-con</section>
+	</div>
+</body>
+</html>
