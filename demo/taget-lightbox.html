@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>taget lightbox no javscript-- 伪类实现遮罩弹窗</title>
+</head>
+<body>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			width: 500px;
+			margin: 50px auto;
+		}
+		.lightbox {
+			position: absolute;
+			width: 100vw;
+			height: 100vh;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		.lightbox-con {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate3d(-50%, -50%, 1px);
+			width: 400px;
+			height: 250px;
+			border: 5px solid #ccc;
+			background-color: #abc;
+			color: #fff;
+			z-index: 2;
+		}
+		.close {
+			/*width: 410px;*/
+			/*margin: 0 auto;*/
+			/*position: relative;*/
+		}
+		.close::after {
+			content: 'X';
+			position: absolute;
+			top: calc(50% - 128px);
+			left: calc(50% + 200px);
+			transform: translate3d(-50%, -50%, 1px);
+			z-index: 3;
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+			text-align: center;
+			border: 1px solid #fff;
+			border-radius: 10px;
+			background-color: rgba(255, 0, 0, .5);
+			color: #fff;
+		}
+		.close::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, .5);
+			z-index: 1;
+		}
+		:target {
+			display: block;
+		}
+	</style>
+	<div class="wrap">
+		<a href="#lightbox">lightbox</a>
+	</div>
+
+	<div id="lightbox" class="lightbox">
+		<div class="lightbox-con">
+			<h1>弹窗</h1>
+			<div>
+				利用<strong>伪类:target</strong>可以和URL的hash值相匹配的特性来实现！
+			</div>
+		</div>
+		<a class="close" href="#"></a>
+	</div>
+</body>
+</html>
