@@ -17,7 +17,21 @@
 			line-height: 200px;
 			text-align: center;
 			margin: 0 auto;
-			opacity: 1;
+			opacity: 0;
+
+			-webkit-animation-name: "load";
+		    -webkit-animation-duration: 3000ms;
+		    -webkit-animation-iteration-count: 1;
+		    -webkit-animation-fill-mode: forwards;
+		}
+
+		@-webkit-keyframes "load" {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
 		}
 		.menu-checkbox {
 			display:none;
@@ -127,7 +141,7 @@
 		<label id="label-btn" class="menu" for="btn"></label>
 	</div>
 	<script>
-		window.onload = function() {
+		/*window.onload = function() {
 			var wrap = document.getElementById('wrap');
 			// 	newCheckBox = document.createElement('input'),
 			// 	label = document.getElementById('label-btn');
@@ -143,7 +157,7 @@
 			setTimeout(function(){
 				// wrap.style.opacity = '1';
 			},500)
-		}
+		}*/
 	</script>
 </body>
 </html>
