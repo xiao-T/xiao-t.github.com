@@ -1,0 +1,72 @@
+@charset "UTF-8";
+/**
+ * @authors xiaoT
+ * @date    2015-09-09 
+ * 
+ */
+
+ %ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.banner	{
+	width: 610px;
+	height: 268px;
+	overflow: hidden;
+	.banner_list {
+		width: 1830px;
+		li {
+			position: relative;
+			float: left;
+		}
+	}
+	.banner_name {
+		bottom: 0;
+		left: 0;
+		color: #fff;
+		font-size: 22px;
+		font-weight: 700;
+		width: 595px;
+		padding: 35px 0 10px 15px;
+		span {
+			width: 512px;
+			display: block;
+			@extend %ellipsis;
+		}
+	}
+	.banner_index {
+		right: 10px;
+		bottom: 20px;
+		a {
+			float: left;
+			width: 10px;
+			height: 10px;
+			line-height: 0;
+			font-size: 0;
+			border-radius: 10px;
+			background-color: #bdb2ad;
+			overflow: hidden;
+			margin-right: 10px;
+			&:hover,
+			&.on {
+				background-color: $heightLightColor;
+			}
+		}
+	}
+	.btn {
+		width: 26px;
+		height: 44px;
+		top: 112px;
+		background-image: url('/img/mobile_game_banner_btn.png');
+	}
+	.prev {
+		background-position: 0 0;
+		left: 15px;
+	}
+	.next {
+		background-position: -26px 0;
+		right: 15px;
+	}
+}
