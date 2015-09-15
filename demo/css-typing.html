@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css 打字机--typing</title>
+</head>
+<body>
+	<style>
+		.demo {
+			width: 50%;
+			height: 50vh;
+			margin: 0 auto;
+			padding: 1rem;
+			border: 1px solid #ccc;
+		}
+		#typeWriter {
+			width: 0;
+			display: inline-block;
+			white-space: nowrap;
+			overflow: hidden;
+			vertical-align: middle;
+			animation: typeWriter 1.8s steps(9, end) forwards;
+		}
+		.demo span{
+			color: red;
+			vertical-align: middle;
+
+			animation: blink 1s step-end infinite;
+		}
+
+		@-webkit-keyframes "typeWriter" {
+			0% {
+				width: 0;
+			}
+			100% {
+				width: 9rem;
+			}
+		}
+
+		@-webkit-keyframes "blink" {
+			0% {
+				opacity: 0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+
+	</style>
+	<div class="demo">
+		<div id="typeWriter">
+			纯样式实现的打字机
+		</div><span>|</span>
+	</div>
+</body>
+</html>
