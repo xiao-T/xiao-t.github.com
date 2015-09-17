@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>css circle </title>
 </head>
 <body>
 	<div class="box">
@@ -15,27 +15,27 @@
 	</div>
 	<style>
 		.box {
-		  margin: 200px;
-		  width: 100px;
-		  height: 100px;
+		  margin: 200px auto;
+		  width: 200px;
+		  height: 200px;
 		  border: 6px solid red;
 		  position: relative;
 		  border-radius: 50%;
 		  overflow: hidden;
+		  transform: rotate(0deg);
 		}
 		a {
 		  border: 1px solid #ccc;
 		  display: block;
-		  width: 100px;
-		  height: 100px;
+		  width: 200px;
+		  height: 200px;
 		  position: absolute;
-		  top: -50px;
-		  left: 50px;
-		  //transform: skew(30deg);
-		  //transform: rotate(70deg)
+		  top: -100px;
+		  left: 100px;
 		  
 		}
 		a:nth-child(1) {
+		  -webkit-animation: nav01 1s;
 		  transform: rotate(0deg) skew(-30deg);
 		  background-color: #abc;
 		  transform-origin: bottom left;
@@ -64,6 +64,15 @@
 		  transform: rotate(300deg) skew(-30deg);
 		  transform-origin: bottom left;
 		  background-color: #cab;
+		}
+		
+		@-webkit-keyframes "nav01" {
+			0% {
+				transform: rotate(0) skew(-30deg);
+			}
+			100% {
+				transform: rotate(120deg) skew(-30deg);
+			}	
 		}
 	</style>
 </body>
