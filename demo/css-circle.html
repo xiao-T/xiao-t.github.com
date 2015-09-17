@@ -5,14 +5,6 @@
 	<title>css circle </title>
 </head>
 <body>
-	<div class="box">
-	  <a href="##">1</a>
-	  <a href="##">2</a>
-	  <a href="##">3</a>
-	  <a href="##">4</a>
-	  <a href="##">5</a>
-	  <a href="##">6</a>
-	</div>
 	<style>
 		.box {
 		  margin: 200px auto;
@@ -32,41 +24,39 @@
 		  position: absolute;
 		  top: -100px;
 		  left: 100px;
-		  
+		  transform: rotate(0deg) skew(-30deg);
+		  transform-origin: bottom left;
+		  display: none;
+		}
+		.animate a {
+			display: block;
 		}
 		a:nth-child(1) {
-		  -webkit-animation: nav01 1s;
-		  transform: rotate(0deg) skew(-30deg);
 		  background-color: #abc;
-		  transform-origin: bottom left;
+		  
 		}
 		a:nth-child(2) {
-		  transform: rotate(60deg) skew(-30deg);
 		  background-color: #bac;
-		  transform-origin: bottom left;
 		}
+		.animate a:nth-child(2) {
+			-webkit-animation: nav02 .25s forwards;
+		}
+		@-webkit-keyframes "nav02" {
+			0% {
+				transform: rotate(0) skew(-30deg);
+			}
+			100% {
+				transform: rotate(60deg) skew(-30deg);
+			}	
+		}
+
 		a:nth-child(3) {
-		  transform: rotate(120deg) skew(-30deg);
 		  background-color: #cba;
-		  transform-origin: bottom left;
 		}
-		a:nth-child(4) {
-		  transform: rotate(180deg) skew(-30deg);
-		  transform-origin: bottom left;
-		  background-color: #acb;
+		.animate a:nth-child(3) {
+			-webkit-animation: nav03 .5s forwards;
 		}
-		a:nth-child(5) {
-		  transform: rotate(240deg) skew(-30deg);
-		  transform-origin: bottom left;
-		  background-color: #bca;
-		}
-		a:nth-child(6) {
-		  transform: rotate(300deg) skew(-30deg);
-		  transform-origin: bottom left;
-		  background-color: #cab;
-		}
-		
-		@-webkit-keyframes "nav01" {
+		@-webkit-keyframes "nav03" {
 			0% {
 				transform: rotate(0) skew(-30deg);
 			}
@@ -74,6 +64,76 @@
 				transform: rotate(120deg) skew(-30deg);
 			}	
 		}
+
+		a:nth-child(4) {
+		  background-color: #acb;
+		}
+		.animate a:nth-child(4) {
+			-webkit-animation: nav04 .75s forwards;
+		}
+		@-webkit-keyframes "nav04" {
+			0% {
+				transform: rotate(0) skew(-30deg);
+			}
+			100% {
+				transform: rotate(180deg) skew(-30deg);
+			}	
+		}
+
+		a:nth-child(5) {
+		  background-color: #bca;
+		}
+		.animate a:nth-child(5) {
+			-webkit-animation: nav05 1s forwards;
+		}
+		@-webkit-keyframes "nav05" {
+			0% {
+				transform: rotate(0) skew(-30deg);
+			}
+			100% {
+				transform: rotate(240deg) skew(-30deg);
+			}	
+		}
+
+		a:nth-child(6) {
+		  background-color: #cab;
+		}
+		.animate a:nth-child(6) {
+			-webkit-animation: nav06 1.25s forwards;
+		}
+		@-webkit-keyframes "nav06" {
+			0% {
+				transform: rotate(0) skew(-30deg);
+			}
+			100% {
+				transform: rotate(300deg) skew(-30deg);
+			}	
+		}
 	</style>
+	<button class="start">开始</button>
+	<button class="reset">重置</button>
+	<div class="box">
+	  <a href="##">1</a>
+	  <a href="##">2</a>
+ 	  <a href="##">3</a>
+	   <a href="##">4</a>
+	  <a href="##">5</a>
+	  <a href="##">6</a>
+	</div>
+	
+	<script>
+		(function() {
+			var box = document.querySelector('.box'),
+				start = document.querySelector('.start'),
+				reset = document.querySelector('.reset')
+			
+			start.onclick = function(){
+				box.classList.add('animate');
+			}
+			reset.onclick = function() {
+				box.classList.remove('animate');
+			}
+		})()
+	</script>
 </body>
 </html>
