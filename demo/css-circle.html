@@ -26,6 +26,7 @@
 		  left: 100px;
 		  transform: rotate(0deg) skew(-30deg);
 		  transform-origin: bottom left;
+		  transition: all .5s;
 		  display: none;
 		}
 		.animate a {
@@ -108,6 +109,10 @@
 			100% {
 				transform: rotate(300deg) skew(-30deg);
 			}	
+		}
+
+		a:hover {
+			background-color: red;
 		}
 	</style>
 	<button class="start">开始</button>
