@@ -3,101 +3,195 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<title>Document</title>
+	<title>一个查看用户信用卡账单的APP界面</title>
+	<link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-		}
-		body {
-			height: 100vh;
-			width: 100vw;
-			overflow: hidden;
-		}
-		#card {
-			position: relative;
-			height: 240px;
-		}
-		a {
-			position: absolute;
-			width: 100%;
-			height: 240px;
-			line-height: 240px;
-			text-align: center;
-			color: #fff;
-			text-decoration: none;
-		}
-		a:nth-of-type(1) {
-			background-color: #abc;
-			z-index: 5;
-		}
-		a:nth-of-type(2) {
-			background-color: #acb;
-			z-index: 4;
-		}
-		a:nth-of-type(3) {
-			background-color: #bac;
-			z-index: 3;
-		}
-		a:nth-of-type(4) {
-			background-color: #bca;
-			z-index: 2;
-		}
-		a:nth-of-type(5) {
-			background-color: #cab;
-			z-index: 1;
-		}
-		.hinge {
-			-webkit-animation: hinge 2s forwards;
-		}
-		@-webkit-keyframes hinge {
-		    0% {
-		        -webkit-transform-origin: top left;
-		        transform-origin: top left;
-		        -webkit-animation-timing-function: ease-in-out;
-		        animation-timing-function: ease-in-out
-		    }
-
-		    20%,60% {
-		        -webkit-transform: rotate3d(0,0,1,80deg);
-		        transform: rotate3d(0,0,1,80deg);
-		        -webkit-transform-origin: top left;
-		        transform-origin: top left;
-		        -webkit-animation-timing-function: ease-in-out;
-		        animation-timing-function: ease-in-out
-		    }
-
-		    40%,80% {
-		        -webkit-transform: rotate3d(0,0,1,60deg);
-		        transform: rotate3d(0,0,1,60deg);
-		        -webkit-transform-origin: top left;
-		        transform-origin: top left;
-		        -webkit-animation-timing-function: ease-in-out;
-		        animation-timing-function: ease-in-out;
-		        opacity: 1
-		    }
-
-		    100% {
-		        -webkit-transform: translate3d(0,700px,0);
-		        transform: translate3d(0,700px,0);
-		        opacity: 0
-		    }
-		}
-	</style>
-	<h1>用手机打开或者打开chrome手机模拟器模式，在card向左滑动</h1>
-	<div id="card">
-		<a href="javascript:;">card1</a>
-		<a href="javascript:;">card2</a>
-		<a href="javascript:;">card3</a>
-		<a href="javascript:;">card4</a>
-		<a href="javascript:;">card5</a>
+	<div class="card" id="card">
+		<a href="javascript:;"><img src="images/card1.png" /></a>
+		<a href="javascript:;"><img src="images/card2.png" /></a>
+		<a href="javascript:;"><img src="images/card3.png" /></a>
+		<a href="javascript:;"><img src="images/card4.png" /></a>
+		<a href="javascript:;"><img src="images/card5.png" /></a>
 	</div>
+	<div class="card-list">
+		<dl class="item">
+			<dt class="bank-name">中国银行信用卡</dt>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">3月</span><span class="year">2015</span>
+					</div>
+					<div class="cycle">账单周期：02/26-03/25</div>
+				</div>
+				<div class="money">￥4215.26</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">2月</span><span class="year">2015</span>
+					</div>
+					<div class="cycle">账单周期：01/26-02/25</div>
+				</div>
+				<div class="money">￥5035.91</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">1月</span><span class="year">2015</span>
+					</div>
+					<div class="cycle">账单周期：12/26-01/25</div>
+				</div>
+				<div class="money">￥6413.58</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+		</dl>
+		<dl class="item">
+			<dt class="bank-name">广发银行信用卡</dt>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">12月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：11/26-12/25</div>
+				</div>
+				<div class="money">￥4215.26</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">11月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：10/26-11/25</div>
+				</div>
+				<div class="money">￥5035.91</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">10月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：09/26-10/25</div>
+				</div>
+				<div class="money">￥6413.58</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+		</dl>
+		<dl class="item">
+			<dt class="bank-name">招商银行-魔兽世界信用卡</dt>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">9月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：08/26-09/25</div>
+				</div>
+				<div class="money">￥4215.26</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">8月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：07/26-08/25</div>
+				</div>
+				<div class="money">￥5035.91</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">7月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：06/26-07/25</div>
+				</div>
+				<div class="money">￥6413.58</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+		</dl>
+		<dl class="item">
+			<dt class="bank-name">招商银行信用卡</dt>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">6月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：05/26-06/25</div>
+				</div>
+				<div class="money">￥4215.26</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">5月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：04/26-05/25</div>
+				</div>
+				<div class="money">￥5035.91</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">4月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：03/26-04/25</div>
+				</div>
+				<div class="money">￥6413.58</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+		</dl>
+		<dl class="item">
+			<dt class="bank-name">东亚银行信用卡</dt>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">3月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：02/26-03/25</div>
+				</div>
+				<div class="money">￥4215.26</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">2月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：01/26-02/25</div>
+				</div>
+				<div class="money">￥5035.91</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+			<dl class="flex bill">
+				<div class="date">
+					<div class="year-month">
+						<span class="month">1月</span><span class="year">2014</span>
+					</div>
+					<div class="cycle">账单周期：12/26-01/25</div>
+				</div>
+				<div class="money">￥6413.58</div>
+				<a href="javascript:;" class="btn detail">查看</a><a href="javascript:;" class="btn delete">删除</a>
+			</dl>
+		</dl>
+	</div>
+	<div class="tip">用手机打开或者打开chrome手机模拟器模式，在card向左滑动</div>
 	<script src="js/zepto.min.js"></script>
 	<script src="js/zepto.touch.js"></script>
 	<script>
 		(function($){
+			switchCard();
+			hideTip();
+			billEvent();
+		})($)
+
+		function switchCard(){
 			var cardBox = document.querySelector('#card'),
 				cardList = cardBox.querySelectorAll('a'),
 				i = 0;
@@ -106,11 +200,39 @@
 				console.log(i)
 				if(i === 5){
 					cardBox.innerHTML = '已经没有内容了';
+					cardBox.classList.add('flex');
+					return false;
 				}
 				cardList[i].classList.add('hinge');
-				i++
+				i++;
+				switchBill(i);
 			})
-		})($)
+		}
+
+		function switchBill(index) {
+			var index = index || 0,
+				billList = $('.item');
+			console.log('switchBill:' + index);
+			billList.eq(index).css('transform', 'translateX(0)');
+		}
+		function hideTip(){
+			var tip = document.querySelector('.tip');
+			setTimeout(function(){
+				tip.classList.add('fadeout');
+			}, 3000)
+		}
+
+		function billEvent(){
+			var bill = $('.bill');
+
+			bill.swipeLeft(function(){
+				bill.removeClass('slide');
+				this.classList.add('slide');
+			})
+			bill.swipeRight(function(){
+				this.classList.remove('slide');
+			})
+		}
 	</script>
 </body>
 </html>
