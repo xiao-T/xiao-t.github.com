@@ -181,7 +181,7 @@
 			</dl>
 		</dl>
 	</div>
-	<div class="tip">用手机打开或者打开chrome手机模拟器模式，在card向左滑动</div>
+	<div class="tip">用手机打开或者打开chrome手机模拟器模式，在<strong>这</strong>向左滑动</div>
 	<script src="js/zepto.min.js"></script>
 	<script src="js/zepto.touch.js"></script>
 	<script>
@@ -199,7 +199,7 @@
 				console.log('swipe left');
 				console.log(i)
 				if(i === 5){
-					cardBox.innerHTML = '已经没有内容了';
+					cardBox.innerHTML = '下面的列表，也可以滑动试试！';
 					cardBox.classList.add('flex');
 					return false;
 				}
@@ -219,7 +219,11 @@
 			var tip = document.querySelector('.tip');
 			setTimeout(function(){
 				tip.classList.add('fadeout');
-			}, 3000)
+			}, 3000);
+			tip.addEventListener('animationend', function(){
+				console.log('end');
+				tip.style.display = 'none';
+			}, false)
 		}
 
 		function billEvent(){
