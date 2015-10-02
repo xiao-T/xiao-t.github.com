@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pendulum---钟摆</title>
+</head>
+<body>
+	<style>
+		ul, li {
+			list-style: none;
+			padding: 0;
+		}
+		.pendulum {
+			margin: 100px auto;
+			display: flex;
+			width: 200px;
+		}
+		.pendulum li {
+			width: 1px;
+			height: 100px;
+			background-color: #999;
+			margin-left: 10px;
+			margin-right: 10px;
+			position: relative;
+		}
+		.pendulum li::after {
+			content: '';
+			position: absolute;
+			bottom: -20px;
+			left: -10px;
+			height: 21px;
+			width: 21px;
+			background-color: #999;
+			border-radius: 100%;
+		}
+		.pendulum li:first-child {
+			animation: pendulum1 4s infinite;
+		    transform-origin: top center;
+		}
+		@keyframes pendulum1 {
+			0% {
+				transform: rotate(0);
+			}
+			25% {
+				transform: rotate(45deg);
+			}
+			50% {
+				transform: rotate(0);
+			}
+			75% {
+				transform: rotate(0);
+			}
+			100% {
+				transform: rotate(0);
+			}
+		}
+		.pendulum li:last-child {
+			animation: pendulum2 4s infinite;
+		    transform-origin: top center;
+		}
+		@keyframes pendulum2 {
+			0% {
+				transform: rotate(0);
+			}
+			25% {
+				transform: rotate(0);
+			}
+			50% {
+				transform: rotate(0);
+			}
+			75% {
+				transform: rotate(-45deg);
+			}
+			100% {
+				transform: rotate(0);
+			}
+		}
+	</style>
+	<ul class="pendulum">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</body>
+</html>
