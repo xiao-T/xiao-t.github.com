@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SVG Doraemon</title>
+</head>
+<body>
+	<style>
+		circle,
+		ellipse,
+		line,
+		path {
+			stroke: #000;
+			stroke-width: 5px;
+		}
+
+		.left-eye,
+		.left-mustache {
+			transform: scale(-1, 1) translate(-800px, 0);
+		}
+	</style>
+	<svg width="800" height="800" version="1.1" xmlns="http://www.w3.org/2000/svg">
+		<g id="face">
+			<!-- 双脚 -->
+			<g>
+				<ellipse cx="270" cy="720" rx="98" ry="52" fill="#fff" />
+				<ellipse cx="530" cy="720" rx="98" ry="52" fill="#fff" />
+			</g>
+			<!-- 身体 -->
+			<g>
+				<path d="M568 445 C568 445, 630 478, 650 500 Q650 559, 600 550 C600 550, 579 540, 556 518 Q553 510, 550 480 C550 480, 553 510, 550 518 Q557 510, 548 650 C548 650, 579 680, 570 700 Q500 720, 440 700 C440 700, 400 650, 360 700 Q300 720, 230 700 C230 700, 224 675, 250 650 Q253 510, 259 480 C259 480, 253, 510, 255 520 Q253 510, 100 400 C100 400, 120 360, 150 350 Q203 380, 220 375 C220 375, 203 380, 568 445" fill="#00A0E9" />
+				<ellipse cx="400" cy="600" rx="110" ry="71" fill="#fff" />
+				<path d="M325 600 Q400 700, 475 600" fill="#fff" />
+				<path d="M325 600 Q400 610, 475 600" fill="#fff" />
+			</g>
+			<!-- 大脸盘 -->
+			<circle fill="#00A0E9" cx="400" cy="300" r="200" />
+			<circle fill="#fff" cx="400" cy="340" r="160" />
+			<!-- 眼睛 -->
+			<g id="eye">
+				<ellipse fill="#fff" cx="345" cy="200" rx="50" ry="65" />
+				<ellipse fill="#000" cx="365" cy="210" rx="20" ry="30" />
+				<ellipse style="stroke: #fff;" fill="#fff" cx="375" cy="210" rx="8" ry="15" />
+			</g>
+			<use class="left-eye" xlink:href="#eye" />
+			<!-- 鼻子 -->
+			<g id="nose">
+				<circle fill="red" cx="400" cy="280" r="40" />
+				<circle style="stroke: none;" fill="#fff" cx="390" cy="270" r="16" />
+			</g>
+			<!-- 胡子 -->
+			<g id="mustache">
+				<line x1="360" y1="320" x2="270" y2="260" />
+				<line x1="360" y1="350" x2="250" y2="340" />
+				<line x1="360" y1="380" x2="260" y2="400" />
+			</g>
+			<line x1="400" y1="320" x2="400" y2="465" />
+			<use class="left-mustache" xlink:href="#mustache" />
+			<!-- 嘴 -->
+			<path d="M280 410 C 360 480, 440 480, 520 410" fill="transparent" />
+			<!-- 双手 -->
+			<g>
+				<circle cx="100" cy="350" r="52" fill="#fff" />
+				<circle cx="654" cy="543" r="52" fill="#fff" />
+			</g>
+			<!-- 围巾 -->
+			<path d="M240 427 C240 427, 400 530, 560 427 Q570 437, 560 447 C560 447, 400 560, 240 450 Q230 437, 242 427" fill="red" />
+			<!-- 铃铛 -->
+			<g>
+				<circle cx="400" cy="530" r="40" fill="#fdd000" />
+				<circle cx="400" cy="542" r="8" fill="#7d6b56" />
+				<line x1="400" y1="554" x2="400" y2="570" />
+				<path d="M365 510 C365 510, 400 498, 435 510 Q450 510, 445 518 C445 518, 400 505, 355 518 Q350 510, 365 510" fill="#fdd000" />
+			</g>
+		</g>
+	</svg>
+	<br>
+</body>
+</html>
