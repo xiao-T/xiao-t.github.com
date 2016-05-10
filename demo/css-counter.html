@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>css counter</title>
+</head>
+<body>
+	<style>
+		* {margin: 0; padding: 0;}
+		
+		.demo {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #ccc;
+			text-align: center;
+			color: #fff;
+			padding: .5rem;
+			counter-reset: counter-name 10;
+		}
+		.demo input {
+			opacity: 0;
+			position: absolute;
+		}
+		.demo input:checked + label {
+			background-color: #F06161;
+		}
+		.demo input:checked.btn-1 {
+			counter-increment: counter-name 13;
+		}
+		.demo input:checked.btn-2 {
+			counter-increment: counter-name 15;
+		}
+		.demo input:checked.btn-3 {
+			counter-increment: counter-name 22;
+		}
+		.demo input:checked.btn-4 {
+			counter-increment: counter-name 34;
+		}
+		h1 {
+			font-size: 1.5rem;
+		}
+		.btn-list {
+			overflow: hidden;
+			padding-top: .5rem;
+			padding-bottom: .5rem;
+		}
+		.btn {
+			float: left;
+			margin-right: .5rem;
+			margin-bottom: .5rem;
+		}
+		.btn label {
+		    padding: 0.625rem 1rem;
+		    background-color: #79BD8F;
+		    border-radius: 5px;
+			display: inline-block;
+		}
+		.result::after {
+			color: red;
+			content: "Total:¥" counter( counter-name );
+		}
+	</style>
+	<div class="demo">
+		<h1>css3 counter demo</h1>
+		<div class="btn-list">
+			<div class="btn">
+				<input class="btn-1" id="btn-1" type="checkbox">
+				<label for="btn-1">(+13)</label>
+			</div>
+			<div class="btn">
+				<input class="btn-2" id="btn-2" type="checkbox">
+				<label for="btn-2">(+15)</label>
+			</div>
+			<div class="btn">
+				<input class="btn-3" id="btn-3" type="checkbox">
+				<label for="btn-3">(+22)</label>
+			</div>
+			<div class="btn">
+				<input class="btn-4" id="btn-4" type="checkbox">
+				<label for="btn-4">(+34)</label>
+			</div>
+		</div>
+		<div class="result"></div>
+	</div>
+</body>
+</html>
