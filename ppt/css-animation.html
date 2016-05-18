@@ -6,6 +6,7 @@
 	<meta name="author" content="xiao-T">
 	<link rel="stylesheet" href="../lib/reveal/reveal.css">
 	<link rel="stylesheet" href="../lib/reveal/theme/moon.css" id="theme">
+    <link rel="stylesheet" href="../lib/reveal/zenburn.css">
 </head>
 <body>
 	<div class="reveal">
@@ -23,7 +24,7 @@
             <section>
             	<h2>web实现动画方式</h2>
             	<ul>
-            		<li class="fragment">GIF动画</li>
+            		<li class="fragment">图片(GIF、APNG、WebP)</li>
 	            	<li class="fragment">Flash动画</li>
 	            	<li class="fragment">视频</li>
 	            	<li class="fragment">CSS动画</li>
@@ -32,12 +33,299 @@
             </section>
             <section>
             	<h2>CSS动画</h2>
+                <ul>
+                    <li class="fragment">过渡－transition</li>
+                    <li class="fragment">变换－transform</li>
+                    <li class="fragment">自定义动画－animation</li>
+                </ul> 
+            </section>
+            <section>
+                <h2>过渡</h2>
+                <p>transition用来定义元素在两种状态之间的过渡。不同状态可以用:hover 、:active之类的 pseudo-classes 定义，或者使用 JavaScript 动态设置。</p>
+            </section>
+            <section>
+                <section>
+                    <ul>
+                        <li>transition-delay属性规定了在过渡效果开始作用之前需要等待的时间。</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+                            transition-delay: 5s[ms];
+                        </code></pre>
+                        <li>transition-duration属性规定了过渡效果持续的时间。</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+                            transition-duration: 5s[ms]
+                        </code></pre>
+                        <li>transition-property属性规定了过渡效果的CSS属性。</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+                            transition-property: color[all];
+                        </code></pre>
+                        <li>transition-delay属性规定了过渡加速度。</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+                            transition-timing-function: linear;
+                        </code></pre>
+                    </ul>
+                </section>
+                <section>
+                    <h2>过渡demo</h2>
+                    <pre><code class="hljs" data-trim contenteditable>
+                        div {
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  transition: 5s 2s width linear;
+}
+div:hover {
+  width: 450px;
+}
+                    </code></pre>
+                    <p><a target="_blank" href="http://jsbin.com/yefijotadu">http://jsbin.com/yefijotadu</a></p>
+                </section>
+            </section>
+            <section>
+                <h2>变换</h2>
+                <p>CSS中transform属性允许你修改CSS可视化模型的坐标空间。</p>
+                <ul>
+                    <li>
+                        <p>移动（translate）</p>
+                    </li>
+                    <li>
+                        <p>旋转（rotate）</p>
+                    </li>
+                    <li>
+                        <p>缩放（scale）</p>
+                    </li>
+                    <li>
+                        <p>倾斜（skew）</p>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h3>移动（translate）</h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+                            transform: translate(12px);
+                        </code></pre>
+                    <p>Demo</p>
+                    <p><a href="" target="_blank">http://jsbin.com/hopezifaxu</a></p>
+                </section>
+                <section>
+                    <h3>旋转（rotate）</h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+                            transform: rotate(30deg);
+                        </code></pre>
+                    <p>Demo</p>
+                    <p><a href="" target="_blank">http://output.jsbin.com/pemokeqado</a></p>
+                </section>
+                <section>
+                    <h3>缩放（scale）</h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+                            transform: scale(2, 1.5);
+                        </code></pre>
+                    <p>Demo</p>
+                    <p><a href="" target="_blank">http://output.jsbin.com/worivesiwa</a></p>
+                </section>
+                <section>
+                    <h3>倾斜（skew）</h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+                            transform: skew(20deg);
+                        </code></pre>
+                    <p>Demo</p>
+                    <p><a href="" target="_blank">http://output.jsbin.com/vepadawako</a></p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>自定义动画</h2>
+                    <p>CSS Animations 是CSS的一个模块，它定义了如何用关键帧来随时间改变CSS的属性值。可以通过指定时长、重复次数和如何重复来控制关键帧动画的行为。</p>
+                </section>
+                <section>
+                    <ul>
+                        <li>animation-name属性指定应用的一系列动画，每个名称代表一个由@keyframes定义的动画序列。</li>
+                        <li>animation-duration属性指定一个动画周期的时长；默认值为0s，表示无动画。</li>
+                        <li>animation-timing-function属性定义CSS动画在每一动画周期中执行的节奏。</li>
+                        <li>animation-delay属性定义动画于何时开始，即从动画应用在元素上到动画开始的这段时间的长度；0s是该属性的默认值。</li>
+                        <li>animation-iteration-count属性定义了动画的循环次数。</li>
+                        <li>animation-direction属性指定了动画的执行方向</li>
+                        <li>animation-fill-mode属性用来指定在动画执行之前和之后如何给动画的目标应用样式。</li>
+                        <li>animation-play-state属性定义一个动画是否运行或者暂停。可以通过查询它来确定动画是否正在运行。另外，它的值可以被设置为暂停和恢复的动画的重放。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>keyframe</h2>
+                    <p>@keyframes @规则 （at-rule）让开发者通过指定动画中特定时间点必须展现的关键帧样式（或者说停留点）来控制CSS动画的中间环节。这使开发者能够控制动画中的更多细节而不是让浏览器自动处理。</p>
+                </section>
+                <section>
+                    <h2>Demo</h2>
+                    <pre>
+                        <code class="hljs" data-trim contenteditable>
+                            .demo {
+  width: 200px;
+  height: 200px;
+  margin: 100px;
+  background-color: #ccc;
+  /* animation: demo 2s; */
+  animation-name: demo;
+  animation-duration: 2s;
+  /* animation-direction: reverse; */
+  /* animation-iteration-count: 10; */
+  animation-fill-mode: forwards;
+}
+@keyframes demo {
+  0% {
+    transform: rotate(0)
+} 
+  100% {
+    transform: rotate(30deg)
+  }
+}
+                        </code>
+                    </pre> 
+                    <p><a href="http://output.jsbin.com/xusidepire">http://output.jsbin.com/xusidepire</a></p>
+                </section>
+            </section>
+            <section>
+                <h2>参考</h2>
+                <ul>
+                    <li><a href="http://www.w3cplus.com/animation/web-animation.html">http://www.w3cplus.com/animation/web-animation.html</a></li>
+                    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform">https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform</a></li>
+                    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Animations">https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Animations</a></li>
+                </ul>
+            </section>
+            <section>
+            	<h2>End</h2>
+                <div class="end-demo">
+                    <div class="flex">
+                        <div class="≡">
+                            <div class="cube">
+                                <div class="top"></div>
+                                <div class="bottom"></div>
+                                <div class="front"></div>
+                                <div class="back"></div>
+                                <div class="right"></div>
+                                <div class="left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="≈">
+                            <div class="loading"></div>
+                            <div class="loading"></div>
+                            <div class="loading"></div>
+                            <div class="loading"></div>
+                            <div class="loading"></div>
+                        </div>
+                    </div>
+                </div>
+            	<p>以上说的内容，我不保证全都正确，欢迎指正！</p>
             </section>
         </div>
     </div>
+    <style>
+        .end-demo {
+            overflow: hidden;
+            display: inline-block;
+        }
+        .flex {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            float: left;
+            box-sizing: border-box;
+            border: 2px solid #fff;
+            margin-top: -2px;
+            margin-left: -2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .≡ { -webkit-transform-style: preserve-3d; transform-style: preserve-3d; -webkit-perspective: 300px; perspective: 300px; }
+        .≡ .cube { -webkit-transform-style: preserve-3d; transform-style: preserve-3d; width: 50px; height: 50px; position: relative; -webkit-animation: ≡ 6s infinite; animation: ≡ 6s infinite; }
+        .≡ .top, .≡ .bottom, .≡ .front, .≡ .back, .≡ .left, .≡ .right { position: absolute; top: 0; left: 0; width: 50px; height: 50px; box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2); }
+        .≡ .top { background-color: rgba(255, 0, 0, 0.5); -webkit-transform: rotateX(90deg) translateZ(25px); transform: rotateX(90deg) translateZ(25px); }
+        .≡ .bottom { background-color: rgba(255, 255, 0, 0.5); -webkit-transform: rotateX(-90deg) translateZ(25px); transform: rotateX(-90deg) translateZ(25px); }
+        .≡ .front { background-color: rgba(0, 255, 0, 0.5); -webkit-transform: translateZ(25px); transform: translateZ(25px); }
+        .≡ .back { background-color: rgba(255, 0, 255, 0.5); -webkit-transform: rotateX(-180deg) translateZ(25px); transform: rotateX(-180deg) translateZ(25px); }
+        .≡ .right { background-color: rgba(0, 0, 255, 0.5); -webkit-transform: rotateY(-90deg) translateZ(25px); transform: rotateY(-90deg) translateZ(25px); }
+        .≡ .left { background-color: rgba(0, 255, 255, 0.5); -webkit-transform: rotateY(90deg) translateZ(25px); transform: rotateY(90deg) translateZ(25px); }
+        @-webkit-keyframes ≡ { 0% { -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+          16.66% { -webkit-transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg); transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg); }
+          33.33% { -webkit-transform: rotateX(90deg) rotateY(0deg) rotateZ(90deg); transform: rotateX(90deg) rotateY(0deg) rotateZ(90deg); }
+          50% { -webkit-transform: rotateX(180deg) rotateY(0deg) rotateZ(90deg); transform: rotateX(180deg) rotateY(0deg) rotateZ(90deg); }
+          66.66% { -webkit-transform: rotateX(180deg) rotateY(90deg) rotateZ(90deg); transform: rotateX(180deg) rotateY(90deg) rotateZ(90deg); }
+          83.33% { -webkit-transform: rotateX(180deg) rotateY(90deg) rotateZ(180deg); transform: rotateX(180deg) rotateY(90deg) rotateZ(180deg); }
+          100% { -webkit-transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg); transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg); } }
+        @keyframes ≡ { 0% { -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+          16.66% { -webkit-transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg); transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg); }
+          33.33% { -webkit-transform: rotateX(90deg) rotateY(0deg) rotateZ(90deg); transform: rotateX(90deg) rotateY(0deg) rotateZ(90deg); }
+          50% { -webkit-transform: rotateX(180deg) rotateY(0deg) rotateZ(90deg); transform: rotateX(180deg) rotateY(0deg) rotateZ(90deg); }
+          66.66% { -webkit-transform: rotateX(180deg) rotateY(90deg) rotateZ(90deg); transform: rotateX(180deg) rotateY(90deg) rotateZ(90deg); }
+          83.33% { -webkit-transform: rotateX(180deg) rotateY(90deg) rotateZ(180deg); transform: rotateX(180deg) rotateY(90deg) rotateZ(180deg); }
+          100% { -webkit-transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg); transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg); } }
+        .≈ {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .≈ .loading { position: relative; margin: 0 4px; width: 5px; height: 15px; border-radius: 2px; border: solid #690; border-width: 0 1px 1px 0; background: #9b2; -webkit-transform-origin: center bottom; transform-origin: center bottom; -webkit-animation: ≈ 5s infinite; animation: ≈ 5s infinite; }
+        .≈ .loading::after { content: ''; position: absolute; bottom: 0; z-index: -1; width: 5px; height: 5px; background: transparent; box-shadow: 0 2px rgba(0, 0, 0, 0.3); opacity: 0; -webkit-transform-origin: 0% 0%; transform-origin: 0% 0%; -webkit-animation: ≈-after 5s infinite; animation: ≈-after 5s infinite; }
+        .≈ .loading:nth-child(2) { -webkit-animation-delay: 0.3s; animation-delay: 0.3s; }
+        .≈ .loading:nth-child(2)::after { -webkit-animation-delay: 0.3s; animation-delay: 0.3s; }
+        .≈ .loading:nth-child(3) { -webkit-animation-delay: 0.6s; animation-delay: 0.6s; }
+        .≈ .loading:nth-child(3)::after { -webkit-animation-delay: 0.6s; animation-delay: 0.6s; }
+        .≈ .loading:nth-child(4) { -webkit-animation-delay: 0.9s; animation-delay: 0.9s; }
+        .≈ .loading:nth-child(4)::after { -webkit-animation-delay: 0.9s; animation-delay: 0.9s; }
+        .≈ .loading:nth-child(5) { -webkit-animation-delay: 1.2s; animation-delay: 1.2s; -webkit-animation-name: ≈-last; animation-name: ≈-last; }
+        .≈ .loading:nth-child(5)::after { -webkit-animation-delay: 1.2s; animation-delay: 1.2s; }
+        .≈ .loading:nth-child(5)::after { -webkit-animation-name: ≈-after-last; animation-name: ≈-after-last; }
+        @-webkit-keyframes ≈ { 10% { -webkit-transform: rotate(70deg); transform: rotate(70deg); }
+          60% { -webkit-transform: rotate(70deg); transform: rotate(70deg); }
+          70% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } }
+        @keyframes ≈ { 10% { -webkit-transform: rotate(70deg); transform: rotate(70deg); }
+          60% { -webkit-transform: rotate(70deg); transform: rotate(70deg); }
+          70% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } }
+        @-webkit-keyframes ≈-last { 10% { -webkit-transform: rotate(90deg); transform: rotate(90deg); }
+          60% { -webkit-transform: rotate(90deg); transform: rotate(90deg); }
+          70% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } }
+        @keyframes ≈-last { 10% { -webkit-transform: rotate(90deg); transform: rotate(90deg); }
+          60% { -webkit-transform: rotate(90deg); transform: rotate(90deg); }
+          70% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } }
+        @-webkit-keyframes ≈-after { 10% { -webkit-transform: rotate(-70deg); transform: rotate(-70deg); width: 10px; opacity: 1; }
+          60% { -webkit-transform: rotate(-70deg); transform: rotate(-70deg); width: 10px; opacity: 1; }
+          70% { width: 5px; -webkit-transform: rotate(0deg); transform: rotate(0deg); opacity: 0; } }
+        @keyframes ≈-after { 10% { -webkit-transform: rotate(-70deg); transform: rotate(-70deg); width: 10px; opacity: 1; }
+          60% { -webkit-transform: rotate(-70deg); transform: rotate(-70deg); width: 10px; opacity: 1; }
+          70% { width: 5px; -webkit-transform: rotate(0deg); transform: rotate(0deg); opacity: 0; } }
+        @-webkit-keyframes ≈-after-last { 10% { -webkit-transform: rotate(-90deg); transform: rotate(-90deg); width: 10px; height: 2px; opacity: .5; left: 3px; bottom: -1px; }
+          60% { -webkit-transform: rotate(-90deg); transform: rotate(-90deg); width: 10px; height: 2px; opacity: .5; left: 3px; bottom: -1px; }
+          70% { width: 5px; height: 5px; -webkit-transform: rotate(0deg); transform: rotate(0deg); opacity: 0; } }
+        @keyframes ≈-after-last { 10% { -webkit-transform: rotate(-90deg); transform: rotate(-90deg); width: 10px; height: 2px; opacity: .5; left: 3px; bottom: -1px; }
+          60% { -webkit-transform: rotate(-90deg); transform: rotate(-90deg); width: 10px; height: 2px; opacity: .5; left: 3px; bottom: -1px; }
+          70% { width: 5px; height: 5px; -webkit-transform: rotate(0deg); transform: rotate(0deg); opacity: 0; } }
+    </style>
     <script src="../lib/reveal/reveal.js"></script>
+    <script src="../lib/reveal/plugin/highlight/highlight.js"></script>
     <script>
-        Reveal.initialize();
+        Reveal.initialize({
+            history: true
+        });
     </script>
 </body>
 </html>
