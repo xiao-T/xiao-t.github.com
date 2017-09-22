@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>how to write a maintainable react component</title>
+	<meta name="author" content="xiao-T">
+	<link rel="stylesheet" href="../lib/reveal/reveal.css">
+	<link rel="stylesheet" href="../lib/reveal/theme/moon.css" id="theme">
+    <link rel="stylesheet" href="../lib/reveal/zenburn.css">
+    <base href="" target="_blank">
+</head>
+<body>
+	<div class="reveal">
+        <div class="slides">
+            <section>
+            	<h2>写 React Components 的正确姿势</h2>
+            	<p><small>Created By <a href="https://github.com/xiao-T">xiaoT</a></small></p>
+            </section>
+            <section>
+            	<h2>有那些姿势</h2>
+                <ul>
+                    <li class="fragment">狗刨</li>
+                    <li class="fragment">仰泳</li>
+                    <li class="fragment">自由泳</li>
+                    <li class="fragment">这些统统都不是😂</li>
+                </ul>
+            </section>
+            <section>
+            	<h2>正确的姿势</h2>
+                <ul>
+                    <li class="fragment">Component VS PrueComponent（横向比较）</li>
+                    <li class="fragment">Container VS Presentational（纵向比较）</li>
+                </ul> 
+            </section>
+            <section>
+                <section>
+                    <h2>Component VS PrueComponent</h2>
+                </section>
+                <section>
+                    <h2>Component</h2>
+<pre>
+    <code class="hljs">
+        class Normal extends Component {
+            // bala bala
+        }
+    </code>
+</pre>
+                </section>
+                <section>
+                    <h2>PureComponent</h2>
+<pre>
+    <code class="hljs">
+        class Pure extends PureComponent {
+            // bala bala
+        }
+    </code>
+</pre>
+                    <ul>
+                        <li class="fragment">pure-render-mixin</li>
+                        <li class="fragment">shouldComponentUpdate</li>
+                    </ul>
+                </section>
+                <section>
+                    <a target="_blank" href="https://stackblitz.com/edit/react-m1x8ez?file=index.js">Demo</a>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Container VS Presentational</h2>
+                    <ul>
+                        <li class="fragment">Smart VS Dumb</li>
+                        <li class="fragment">Stateful VS Stateless</li>
+                        <li class="fragment">...</li>
+                    </ul>
+                </section>
+                <section>
+                        <h2>Container Component</h2>
+<pre>
+    <code class="hljs">
+        class ContainerComponent extends Component {
+            constructor(){
+                super();
+                this.state = {
+                    name: 'Container Component',
+                    data: {}
+                }
+            }
+            fetchData(){
+                // 获取数据
+            }
+            componentDidMount(){} 
+            render(){
+                return (
+                    // bala bala
+                )
+            }                
+        }
+    </code>
+</pre>
+                </section>
+                <section>
+                    <ul>
+                        <li>关注与该怎么运行</li>
+                        <li>处理数据</li>
+                        <li>通过props传递数据给Presentational Component</li>
+                        <li>由于他们经常作为数据来源的角色，所以container一般会包含state</li>
+                    </ul>
+                </section>
+                <section>
+                        <h2>Presentational Component</h2>
+<pre>
+    <code class="hljs">
+        const Presentational = (props, context) => {
+            
+            return (
+                // bala bala
+            )               
+        }
+    </code>
+</pre>
+                </section>
+                <section>
+                    <ul>
+                        <li>关注于该怎样展现</li>
+                        <li>不关注数据是怎么加载和处理的</li>
+                        <li>只通过props来获取数据和回掉函数</li>
+                        <li> 一般没有自己的state</li>
+                    </ul>
+                </section>
+                <section>
+                    <a href="https://stackblitz.com/edit/react-tx1ded">Demo</a>
+                </section>
+            </section>
+            <section>
+                <h2>参考</h2>
+                <ul>
+                    <li><a href="https://segmentfault.com/a/1190000007788858">(翻译)Presentational and Container Components</a></li>
+                    <li><a href="https://segmentfault.com/a/1190000007786080">(翻译) Container Components</a></li>
+                    <li><a href="https://zhuanlan.zhihu.com/p/24776678">深入理解 React 高阶组件</a></li>
+                    <li><a href="http://www.zcfy.cc/article/why-and-how-to-use-purecomponent-in-react-js-60devs-2344.html">在React.js中使用PureComponent的重要性和使用方式</a></li>
+                    <li><a href="https://segmentfault.com/a/1190000006741060">React PureComponent 源码解析</a></li>
+                    <li><a href="https://toddmotto.com/stateful-stateless-components#impure-versus-pure-functions">Stateful and stateless components, the missing manual(Angular)</a></li>
+                </ul>
+            </section>
+            <section>
+            	<h2>End</h2>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script src="../lib/reveal/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            history: true
+        });
+    </script>
+</body>
+</html>
